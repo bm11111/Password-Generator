@@ -17,12 +17,14 @@ function writePassword() {
 }
 
 // Add event listener to generate button
+generateBtn.addEventListener("click", generatePassword);
 
-function collectInfo() {
+
+function generatePassword() {
   var promptLength = window.prompt("Choose a number between 8 and 128 for your password length");
   if (promptLength <8 || promptLength >128 || isNaN(promptLength)) {
     window.prompt("Please enter another value")
-    collectInfo();
+    generatePassword();
   }
   var choices = [];
   var promptUpperCase = confirm("Would you like your password to have upper case?");
@@ -32,11 +34,10 @@ function collectInfo() {
 
   if (!promptUpperCase && !promptLowerCase && !promptSpecialCharacters && !promptNumber) {
     window.alert("Invalid Input");
-    collectInfo();
+    //generatePassword();
   } else {
     writePassword();
   }
-
   if (promptUpperCase === "true"){
     choices.push(promptUpperCase);
   } if (promptLowerCase === "true"){
@@ -46,14 +47,8 @@ function collectInfo() {
   } if (promptNumber === "true"){
     choices.push(promptNumber);
   } else {
-    collectInfo();
+    generatePassword();
   }
-  for (var i = 0; i < promptLength; i++){
-    var pick = choices[Math.floor(Math.random() * choices.length)];
-    password.push(pick);
-  }
-
 }
 
 
-generateBtn.addEventListener("click", collectInfo);
